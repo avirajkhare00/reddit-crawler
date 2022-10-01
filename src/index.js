@@ -4,7 +4,8 @@ import pageCrawler from './utils/page-crawler/index.js';
 import sanitizedText from './utils/text-sanitization/index.js';
 import textToSpeechConvertor from './utils/text-to-speech-convertor/index.js';
 
-dotenv.config()(async () => {
+dotenv.config({ path: './.env' });
+(async () => {
   const url = process.argv[2];
   const text = await pageCrawler(url);
   const cleanedText = sanitizedText(text).slice(0, 500);
