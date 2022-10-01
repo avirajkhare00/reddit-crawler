@@ -1,5 +1,5 @@
-function textSanitization(text){
-    return text.replace('\n', ' ');
+function textSanitization(text) {
+  return text.replace('\n', ' ');
 }
 
 export default textSanitization;
