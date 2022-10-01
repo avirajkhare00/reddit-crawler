@@ -8,9 +8,9 @@ describe('POST', () => {
     // beforeEach(() => {
     //     jest.setTimeout(600000);
     // });
-    xit('returns data when ibm synthesize api is called', done => {
+    it('returns data when ibm synthesize api is called', done => {
         // This sets the mock adapter on the default instance
-        var mock = new MockAdapter(axios, {delayResponse: 10000});
+        var mock = new MockAdapter(axios);
         // Mock any POST request to /v1/synthesize/
         // arguments for reply are (status)
         mock.onPost("/v1/synthesize/").reply(200);
@@ -21,5 +21,6 @@ describe('POST', () => {
         .then(function(data){
             expect(data.status).toBe(200);
         });
+        done();
     });
 });
