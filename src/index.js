@@ -29,7 +29,7 @@ app.post('/crawl_text', async (req, res) => {
 
 app.post('/convert_audio', async (req, res) => {
   const fileName = Date.now();
-  await textToSpeechConvertor(
+  textToSpeechConvertor(
     `${fileName.toString()}.wav`,
     req.body.text,
     process.env.IBM_URL,
