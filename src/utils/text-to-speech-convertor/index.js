@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createWriteStream } from 'fs';
 
-function textToSpeechConvertor(fileName, textContent, url, username, password, voice) {
+async function textToSpeechConvertor(fileName, textContent, url, username, password, voice, res) {
   axios({
     url,
     method: 'post',
@@ -22,10 +22,15 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
     },
   }).then((response) => {
     response.data.pipe(createWriteStream(fileName));
-  })
-    .catch((err) => {
-      throw new Error('Unable to fetch response: ', err);
+    res.writeHead(200, {
+      'Content-Type': 'mimetype',
+      'Content-disposition': `attachment;filename=${fileName}`,
+      // 'Content-Length': response.length
     });
+    res.end(Buffer.from(response, 'binary'));
+  }).catch((err) => {
+    throw new Error(`Unable to fetch response: ${err.toString()}`);
+  });
 }
 
 export default textToSpeechConvertor;
