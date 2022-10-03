@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { createWriteStream } from 'fs';
+import { writeFileSync } from 'fs';
 
 function textToSpeechConvertor(fileName, textContent, url, username, password, voice, res) {
   axios({
     url,
     method: 'post',
-    responseType: 'stream',
+    responseType: 'blob', // this is important
     auth: {
       username,
       password,
@@ -21,13 +21,8 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
       text: textContent,
     },
   }).then((response) => {
-    response.data.pipe(createWriteStream(fileName));
-    res.writeHead(200, {
-      'Content-Type': 'mimetype',
-      'Content-disposition': `attachment;filename=${fileName}`,
-      'Content-Length': response.length
-    });
-    res.end(Buffer.from(response, 'binary'));
+    writeFileSync("public/output/" + fileName, response.data);
+    res.json({"fileName": fileName});
   }).catch((err) => {
     throw new Error(`Unable to fetch response: ${err.toString()}`);
   });

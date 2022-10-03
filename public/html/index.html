@@ -100,6 +100,7 @@
             <textarea id="crawlTextArea" class="form-control" rows="10"></textarea>
             <button class="btn btn-primary" id="convertAudio" type="button">Convert Audio</button>
         </div>
+        <div id="downloadDom"></div>
     </main>
 
 
@@ -130,11 +131,10 @@
                 },
                 body: JSON.stringify({ text: document.getElementById('crawlTextArea').value })
             })
-            .then( res => res.blob() )
-            .then( blob => {
-            let file = window.URL.createObjectURL(blob);
-                window.location.assign(file);
-            });
+            .then( async res => {
+                const fileName = await res.json();
+                document.getElementById('downloadDom').innerHTML = `<a href="output/${fileName.fileName}">Download file</a>`;
+            } )
         };
     </script>
 
