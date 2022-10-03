@@ -12,7 +12,7 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
     },
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'audio/wav',
+      Accept: 'audio/wav',
     },
     params: {
       voice,
@@ -21,8 +21,8 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
       text: textContent,
     },
   }).then((response) => {
-    writeFileSync("public/output/" + fileName, response.data);
-    res.json({"fileName": fileName});
+    writeFileSync(`public/output/${fileName}`, response.data);
+    res.json({ fileName });
   }).catch((err) => {
     throw new Error(`Unable to fetch response: ${err.toString()}`);
   });
