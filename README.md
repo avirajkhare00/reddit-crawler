@@ -11,7 +11,6 @@ Basic reddit crawler using puppetter.
 --data "{\"text\":\"My name is Aviraj Khare and I am from India.\"}" \
 --output hello_world.wav \
 "{url}/v1/synthesize?voice=en-US_MichaelV3Voice"
-```
 
 # TODO
  - ~~Mock the API call. I am crying :(~~
