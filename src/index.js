@@ -3,16 +3,16 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 import pageCrawler from './utils/page-crawler/index.js';
-import textToSpeechConvertor from './utils/text-to-speech-convertor/index.js';
+import downloadAudioFromText from './utils/bash-file-downloader/index.js'
 
 dotenv.config({ path: './.env' });
 
 const app = express();
 const port = 8080;
 
-const __dirname = path.resolve();
+const _dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(_dirname, 'public')));
 app.use(express.json());
 
 app.get('/ping', (req, res) => {
@@ -29,14 +29,12 @@ app.post('/crawl_text', async (req, res) => {
 
 app.post('/convert_audio', async (req, res) => {
   const fileName = Date.now();
-  textToSpeechConvertor(
-    `${fileName.toString()}.wav`,
-    req.body.text,
-    process.env.IBM_URL,
-    'apikey',
+  downloadAudioFromText(
     process.env.API_KEY,
-    'en-US_MichaelV3Voice',
-    res,
+    req.body.text.replace('"', ''),
+    `${fileName.toString()}.wav`,
+    process.env.IBM_URL,
+    res
   );
 });
 
