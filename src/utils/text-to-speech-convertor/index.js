@@ -21,7 +21,7 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
       text: textContent,
     },
   }).then((response) => {
-    writeFileSync(`public/output/${fileName}`, response.data);
+    writeFileSync(`public/output/${fileName}`, response.data, 'binary');
     res.json({ fileName });
   }).catch((err) => {
     throw new Error(`Unable to fetch response: ${err.toString()}`);

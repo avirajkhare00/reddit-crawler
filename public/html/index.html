@@ -133,7 +133,7 @@
             })
             .then( async res => {
                 const fileName = await res.json();
-                document.getElementById('downloadDom').innerHTML = `<a href="output/${fileName.fileName}">Download file</a>`;
+                document.getElementById('downloadDom').innerHTML = `<a href="output/${fileName.fileName}" target="_blank">Download file</a>`;
             } )
         };
     </script>
