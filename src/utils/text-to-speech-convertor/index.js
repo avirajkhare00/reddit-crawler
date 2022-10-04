@@ -12,7 +12,7 @@ function textToSpeechConvertor(fileName, textContent, url, username, password, v
     },
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'audio/wav',
+      Accept: 'audio/wav',
     },
     params: {
       voice,

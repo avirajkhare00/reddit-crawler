@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 import pageCrawler from './utils/page-crawler/index.js';
-import downloadAudioFromText from './utils/bash-file-downloader/index.js'
+import downloadAudioFromText from './utils/bash-file-downloader/index.js';
 
 dotenv.config({ path: './.env' });
 
@@ -34,7 +34,7 @@ app.post('/convert_audio', async (req, res) => {
     req.body.text.replace('"', ''),
     `${fileName.toString()}.wav`,
     process.env.IBM_URL,
-    res
+    res,
   );
 });
 
