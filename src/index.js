@@ -29,7 +29,7 @@ app.post('/crawl_text', async (req, res) => {
 
 app.post('/convert_audio', async (req, res) => {
   const fileName = Date.now();
-  downloadAudioFromText(
+  await downloadAudioFromText(
     process.env.API_KEY,
     req.body.text.replace('"', ''),
     `${fileName.toString()}.wav`,
