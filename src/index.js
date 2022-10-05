@@ -31,7 +31,7 @@ app.post('/convert_audio', async (req, res) => {
   const fileName = Date.now();
   await downloadAudioFromText(
     process.env.API_KEY,
-    req.body.text.replace('"', ''),
+    req.body.text.replace('"', '').replace("’", ""), // TODO: refactor it into function
     `${fileName.toString()}.wav`,
     process.env.IBM_URL,
     res,
