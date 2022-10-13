@@ -1,15 +1,25 @@
-import moviepy.editor as mp
+from moviepy.editor import *
 
-my_video = mp.VideoFileClip("data/1.mov", audio=True)
 
-w,h = moviesize = my_video.size
+screensize = (720,460)
+text_clip_one = TextClip('Hello. My name is Aviraj Khare.',color='white', font="Amiri-Bold",
+                   kerning = 5, fontsize=40)
+text_clip_one = text_clip_one.set_duration(3)
+cvc1 = CompositeVideoClip( [text_clip_one.set_pos('center')],
+                        size=screensize)
 
-my_text = mp.TextClip("The Art of Adding Text on Video", font='Amiri-regular', color='white', fontsize=34)
+text_clip_two = TextClip('I am from India.',color='white', font="Amiri-Bold",
+                   kerning = 5, fontsize=50)
+text_clip_two = text_clip_two.set_duration(3)
+cvc2 = CompositeVideoClip( [text_clip_two.set_pos('center')],
+                        size=screensize)
 
-txt_col = my_text.on_color(size=(my_video.w + my_text.w, my_text.h+5), color=(0,0,0), pos=(6,'center'), col_opacity=0.6)
+text_clip_three = TextClip('Thank You.',color='white', font="Amiri-Bold",
+                   kerning = 5, fontsize=100)
+text_clip_three = text_clip_three.set_duration(3)
+cvc3 = CompositeVideoClip( [text_clip_three.set_pos('center')],
+                        size=screensize)
 
-txt_mov = txt_col.set_pos( lambda t: (max(w/30,int(w-0.5*w*t)),max(5*h/6,int(100*t))) )
+final_clip = concatenate_videoclips([cvc1, cvc2, cvc3])
 
-final = mp.CompositeVideoClip([my_video,txt_mov])
-
-final.subclip(0,17).write_videofile("data/text_add_result.mov",fps=24,codec='libx264')
+final_clip.write_videofile('chalja_bhai.mp4', fps=30, codec='libx264')
