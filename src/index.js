@@ -29,6 +29,7 @@ app.post('/crawl_text', async (req, res) => {
 });
 
 app.post('/convert_audio', async (req, res) => {
+  req.setTimeout(300000);
   const fileName = Date.now();
   await downloadAudioFromText(
     process.env.API_KEY,
@@ -38,8 +39,6 @@ app.post('/convert_audio', async (req, res) => {
     res,
   );
 });
-
-app.setTimeout(600000);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
