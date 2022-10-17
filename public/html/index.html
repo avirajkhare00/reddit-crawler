@@ -125,6 +125,7 @@
         convertAudioButton.onclick = async function(){
             const fileDownload = fetch('../convert_audio', {
                 method: 'post',
+                timeout: 600000,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
