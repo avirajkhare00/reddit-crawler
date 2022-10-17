@@ -4,6 +4,7 @@ import path from 'path';
 
 import pageCrawler from './utils/page-crawler/index.js';
 import downloadAudioFromText from './utils/bash-file-downloader/index.js';
+import { Server } from 'http';
 
 dotenv.config({ path: './.env' });
 
@@ -37,6 +38,8 @@ app.post('/convert_audio', async (req, res) => {
     res,
   );
 });
+
+app.setTimeout(600000);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
