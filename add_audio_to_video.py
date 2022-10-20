@@ -1,4 +1,6 @@
+from tkinter import Image
 from moviepy.video.VideoClip import TextClip
+from moviepy.editor import ImageClip
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
 from moviepy.editor import concatenate_videoclips
@@ -31,14 +33,19 @@ texts = [
 videoclips = []
 
 for line in texts:
-    videoclip = TextClip(line, color='white', font="Amiri-Bold", fontsize=24)
-    videoclip = videoclip.set_position("bottom")
+    videoclip = TextClip(line, color='white', font="Amiri-Bold", fontsize=28)
+    videoclip = videoclip.set_position("center", "bottom")
     videoclip = videoclip.set_duration(5)
     videoclips.append(videoclip)
 
 final = concatenate_videoclips(videoclips)
 
-videoclip = CompositeVideoClip([final], size=screensize)
+image = (ImageClip("polkadot_mesh.jpg")
+        .set_duration(final.duration)
+        .resize(width=1920, height=1080)
+        .set_pos("center"))
+
+videoclip = CompositeVideoClip([image, final], size=screensize)
 videoclip = videoclip.set_audio(AudioFileClip('reddit_post_audio.mp3'))
 
 videoclip.write_videofile("new_filename.mp4", fps=30, codec='libx264', audio_codec='aac', temp_audiofile='temp-audio.m4a', remove_temp=True)
